@@ -1,0 +1,95 @@
+<div *ngIf="adminView; else userdefault" class="container text-center mt-5">
+  <div *ngIf="character != null; else noData" class="card m-0-auto" style="width: 28rem;">
+    <img class="card-img-top" src="{{character.image}}" alt="Card image cap">
+    <div class="card-body">
+      <div *ngIf="editId == false; else editON" class="editId">
+        <h5 class="card-title">{{character.name}}</h5>
+        <p class="card-text mt-0 mb-0"><span class="font-weight-bold">Estado: </span>{{character.status}}</p>
+        <p class="card-text mt-0 mb-0"><span class="font-weight-bold">Especie: </span>{{character.species}}</p>
+        <p class="card-text mt-0 mb-0"><span class="font-weight-bold">Genero: </span>{{character.gender}}</p>
+        <div class="mt-2">
+          <button (click)="edit()" href="#" class="btn btn-primary">Edit <i class="bi bi-pencil-square"></i></button> 
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">
+            Eliminar <i class="bi bi-trash3"></i>
+          </button>
+        </div>
+      </div>
+      <ng-template #editON>
+        <form [formGroup]="characterForm" class="mt-2">
+          <p class="mb-0 mt-2">Nombre</p>
+          <div class="input-group">
+              <input formControlName="name" type="text" class="form-control"> <br>
+          </div>
+          <p class="mb-0 mt-2">Estado</p>
+          <div class="input-group">
+              <input formControlName="status" type="text" class="form-control"> <br>
+          </div>
+          <p class="mb-0 mt-2">Especie</p>
+          <div class="input-group">
+              <input formControlName="species" type="text" class="form-control"> <br>
+          </div>
+          <p class="mb-0 mt-2">Genero</p>
+          <div class="input-group">
+              <input formControlName="gender" type="text" class="form-control"> <br>
+          </div>
+          <p class="mb-0 mt-2">Origen</p>
+          <div class="input-group">
+              <input formControlName="origin" type="text" class="form-control"> <br>
+          </div>
+          <p class="mb-0 mt-2">Imagen</p>
+          <div class="input-group">
+              <input formControlName="image" type="text" class="form-control" ng-init="searchText='character.image'" value="{{character.image}}"> <br>
+          </div>
+          <button (click)="editCharacter()" type="button" class="btn btn-dark mt-3">Editar Personaje <i class="bi bi-save"></i></button> 
+          <button (click)="edit()" type="button" class="btn btn-warning mt-3">Cancelar <i class="bi bi-backspace"></i></button>
+      </form>
+      </ng-template>
+    </div>
+  </div>
+  <ng-template #noData>
+    <h1>404</h1>
+    <h2>Character Not Found</h2>
+  </ng-template>
+</div>
+
+
+
+<!-- Modal Delete Character-->
+<div *ngIf="adminView" class="modal" id="delete">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Estas seguro?</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <button (click)="deleteCharacter()" class="btn btn-warning">Eliminar <i class="bi bi-exclamation-octagon"></i></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #userdefault>
+  <div class="container text-center mt-5">
+    <div *ngIf="character != null; else noData" class="card m-0-auto" style="width: 28rem;">
+      <img class="card-img-top" src="{{character.image}}" alt="Card image cap">
+      <div class="card-body">
+        <div class="editId">
+          <h5 class="card-title">{{character.name}}</h5>
+          <p class="card-text mt-0 mb-0"><span class="font-weight-bold">Estado: </span>{{character.status}}</p>
+          <p class="card-text mt-0 mb-0"><span class="font-weight-bold">Especie: </span>{{character.species}}</p>
+          <p class="card-text mt-0 mb-0"><span class="font-weight-bold">Genero: </span>{{character.gender}}</p>
+          <div class="mt-2">
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noData>
+      <h1>404</h1>
+      <h2>Character Not Found</h2>
+    </ng-template>
+  </div>
+</ng-template>
